@@ -1,39 +1,3 @@
-"""
-populate_db.py
-
-Populates shipment_database.db with the shipment records contained in
-shipping_data_0.csv, shipping_data_1.csv, and shipping_data_2.csv.
-
-Database schema:
-    product(id INTEGER PK, name TEXT UNIQUE NOT NULL)
-    shipment(id INTEGER PK, product_id INTEGER FK -> product,
-              quantity INTEGER, origin TEXT, destination TEXT)
-
-Data sources:
-    shipping_data_0.csv
-        Self-contained: one row per shipment, one product per shipment,
-        quantity already given.
-        Columns: origin_warehouse, destination_store, product, on_time,
-                 product_quantity, driver_identifier
-
-    shipping_data_1.csv
-        One row per individual unit of product shipped. Rows must be
-        grouped by (shipment_identifier, product) to determine the
-        quantity of each product in a shipment.
-        Columns: shipment_identifier, product, on_time
-
-    shipping_data_2.csv
-        Lookup table giving the origin/destination for each shipment
-        identifier referenced in shipping_data_1.csv.
-        Columns: shipment_identifier, origin_warehouse, destination_store,
-                 driver_identifier
-
-Only the columns relevant to the `product` and `shipment` tables
-(product name, quantity, origin, destination) are extracted; fields such
-as on_time and driver_identifier are not part of the schema and are
-ignored.
-"""
-
 import csv
 import sqlite3
 from collections import Counter
